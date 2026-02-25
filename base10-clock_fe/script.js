@@ -1,3 +1,5 @@
+//1d_hr = 100min, 1d_min = 100sec
+//1 d_time = 1.20 standard hour
 function updateClocks() {
     const now = new Date();
 
@@ -27,12 +29,15 @@ function updateClocks() {
         (now.getSeconds() * 1000) +
         now.getMilliseconds();
 
-    const decimalMs = (msSinceMidnight / 86400000) * 100000000;
+    const decimalMs = (msSinceMidnight / 86400000) * 200000000;
 
-    const decH = Math.floor(decimalMs / 10000000);
+    let decH = Math.floor(decimalMs / 10000000);
     const decM = Math.floor((decimalMs % 10000000) / 100000);
     const decS = Math.floor((decimalMs % 100000) / 1000);
-    const decAmPm = decH >= 5 ? 'PM' : 'AM';
+    const decAmPm = decH >= 10 ? 'PM' : 'AM';
+
+    decH = decH % 10;
+    decH = decH ? decH : 10;
 
     const decHoursText = decH.toString().padStart(2, '0');
     const decMinutesText = decM.toString().padStart(2, '0');
@@ -50,4 +55,4 @@ function updateClocks() {
 updateClocks();
 
 // Update every second
-setInterval(updateClocks, 1000);
+setInterval(updateClocks, 100);

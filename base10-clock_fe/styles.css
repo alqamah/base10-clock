@@ -130,7 +130,13 @@ body {
 .time-separator.glow {
     color: #818cf8;
     text-shadow: 0 0 15px rgba(129, 140, 248, 0.6);
-    animation: blink 2s infinite;
+    animation: blink 1s infinite;
+}
+
+.time-separator.glow2 {
+    color: #818cf8;
+    text-shadow: 0 0 15px rgba(129, 140, 248, 0.6);
+    animation: blink 415ms infinite;
 }
 
 @keyframes blink {
@@ -141,7 +147,7 @@ body {
     }
 
     50% {
-        opacity: 0.3;
+        opacity: 0.2;
     }
 }
 
