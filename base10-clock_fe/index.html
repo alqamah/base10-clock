@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base10 Clock</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="clock-wrapper">
+            <!-- Standard Time Clock -->
+            <div class="clock-container glass-panel">
+                <div class="clock-label">Standard Time</div>
+                <div class="time-display" id="standard-clock">
+                    <span class="time-digit hours">00</span>
+                    <span class="time-separator glow">:</span>
+                    <span class="time-digit minutes">00</span>
+                    <span class="time-separator glow">:</span>
+                    <span class="time-digit seconds">00</span>
+                    <span class="time-ampm ampm">AM</span>
+                </div>
+            </div>
+
+            <!-- Decimal Time Clock -->
+            <div class="clock-container glass-panel decimal-clock">
+                <div class="clock-label">Decimal Time (Base-10)</div>
+                <div class="time-display" id="decimal-clock">
+                    <span class="time-digit hours">00</span>
+                    <span class="time-separator glow">:</span>
+                    <span class="time-digit minutes">00</span>
+                    <span class="time-separator glow">:</span>
+                    <span class="time-digit seconds">00</span>
+                    <span class="time-ampm ampm">AM</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
