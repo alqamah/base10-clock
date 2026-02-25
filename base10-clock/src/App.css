@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500&display=swap');
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+  overflow-x: hidden;
+  position: relative;
+  padding: 2rem;
+}
+
+.app-container::before,
+.app-container::after {
+  content: '';
+  position: absolute;
+  width: 50vw;
+  height: 50vw;
+  border-radius: 50%;
+  filter: blur(120px);
+  z-index: 0;
+  animation: float 15s infinite ease-in-out alternate;
+}
+
+.app-container::before {
+  background: rgba(99, 102, 241, 0.15);
+  top: -10%;
+  left: -10%;
+}
+
+.app-container::after {
+  background: rgba(168, 85, 247, 0.15);
+  bottom: -10%;
+  right: -10%;
+  animation-delay: -7s;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  100% {
+    transform: translate(5%, 5%) scale(1.1);
+  }
+}
+
+.clock-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 800px;
+  z-index: 10;
+}
+
+.clock-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  padding: 2.5rem;
+  border-radius: 24px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.clock-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #94a3b8;
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.time-display {
+  position: relative;
+  display: flexbox;
+  width: 20vw;
+  align-items: baseline;
+  font-family: 'Orbitron', sans-serif;
+  line-height: 1;
+}
+
+.time-digit {
+  /* font-size: clamp(3rem, 15vw, 6rem); */
+  font-size: 5rem;
+  font-weight: 700;
+  background: linear-gradient(to bottom, #fff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  width: 1.8ch;
+  text-align: center;
+}
+
+.time-separator {
+  font-size: clamp(2.5rem, 12vw, 5rem);
+  color: rgba(255, 255, 255, 0.2);
+  margin: 0 0.25rem;
+}
+
+.time-separator.glow {
+  color: #818cf8;
+  text-shadow: 0 0 15px rgba(129, 140, 248, 0.6);
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.time-ampm {
+  position: fixed;
+  bottom: 22%;
+  right: 20px;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  font-weight: 600;
+  margin-left: 0.75rem;
+  color: #6366f1;
+  text-transform: uppercase;
+}
+
+.date-display {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  color: #94a3b8;
+  text-transform: uppercase;
+  padding: 0.5rem 1.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Decimal Clock Specifics */
+.decimal-clock {
+  background: rgba(168, 85, 247, 0.03);
+  border: 1px solid rgba(168, 85, 247, 0.1);
+}
+
+.decimal-clock .time-digit {
+  background: linear-gradient(to bottom, #f5f3ff, #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.decimal-clock .time-ampm {
+  color: #a78bfa;
+}
+
+.decimal-clock .time-separator.glow {
+  color: #a78bfa;
+  text-shadow: 0 0 15px rgba(167, 139, 250, 0.6);
+}
+
+.clock-description {
+  margin-top: 1.5rem;
+  font-size: 0.7rem;
+  color: #64748b;
+  letter-spacing: 0.1em;
+}
+
+@media (min-width: 1024px) {
+  .clock-wrapper {
+    flex-direction: row;
+    max-width: 1200px;
+    align-items: stretch;
+  }
+
+  .clock-container {
+    flex: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .app-container {
+    padding: 1rem;
+  }
+
+  .clock-container {
+    padding: 1.5rem;
+  }
+
+  .time-digit {
+    width: 1.5ch;
+  }
+}
