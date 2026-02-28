@@ -77,8 +77,19 @@ function setTimeZone(tz, btn) {
     }
 }
 
+/**
+ * Toggles the visibility of the conversion logic formula block.
+ */
+function toggleFormula() {
+    const formulas = document.querySelectorAll('.formula-block');
+    formulas.forEach(f => {
+        f.classList.toggle('hidden');
+    });
+}
+
 // Global exposure for HTML onclick attributes
 window.setTimeZone = setTimeZone;
+window.toggleFormula = toggleFormula;
 
 // Initial execution and heart-beat
 document.addEventListener('DOMContentLoaded', () => {

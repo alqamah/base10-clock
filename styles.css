@@ -14,18 +14,19 @@
     /* filter: invert(100%); */
 
     margin: 0;
-    padding: 0;
+    /* padding: 10px; */
     box-sizing: border-box;
 }
 
 body {
+    padding: 10px;
     background-color: var(--bg);
     color: var(--text-primary);
     font-family: var(--font-sans);
-    display: flex;
+    display: grid;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    height: fit-content;
     overflow: hidden;
     /* Industrial mesh background */
     background-image:
@@ -126,6 +127,30 @@ header {
     border: 1px solid var(--border);
     padding: 10px;
     border-radius: 2px;
+    transition: opacity 0.2s ease;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.toggle-formula {
+    background: transparent;
+    border: none;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    cursor: pointer;
+    padding: 2px 4px;
+    margin-left: 8px;
+    opacity: 0.7;
+    transition: .5s all;
+}
+
+.toggle-formula:hover {
+    opacity: 1;
+    cursor: crosshair;
+    background: black;
 }
 
 .formula-title {
@@ -146,13 +171,14 @@ header {
 .formula-details {
     list-style: none;
     font-size: 0.55rem;
+    margin-left: -30px;
     color: var(--text-secondary);
 }
 
 .formula-details li {
     margin-top: 2px;
     position: relative;
-    padding-left: 10px;
+    padding-left: 20px;
 }
 
 .formula-details li::before {
@@ -173,7 +199,7 @@ header {
 }
 
 .controls-wrap {
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
 }
 
 .controls {
