@@ -1,4 +1,180 @@
-<!-- redirect this file to base10-clock/index.html -->
-<script>
-    window.location.href = "./base10-clock_fe/index.html";
-</script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True Decimal Clock - Multi-Zone</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --accent: #38bdf8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: var(--card);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .label {
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .time-display {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .standard-time {
+            font-size: 1.2rem;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        button {
+            background: #334155;
+            border: none;
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.4rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        button.active {
+            background: var(--accent);
+            color: var(--bg);
+            font-weight: bold;
+        }
+
+        .timezone-info {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="label">True Decimal Time (20h)</div>
+        <div id="decimal-clock" class="time-display">0:00:00 AM</div>
+
+        <div class="label">Standard Time</div>
+        <div id="standard-clock" class="standard-time">00:00:00</div>
+
+        <div class="label">Switch Time Zone</div>
+        <div class="controls">
+            <button onclick="setTimeZone('UTC', this)">UTC</button>
+            <button onclick="setTimeZone('Asia/Kolkata', this)" class="active">IST</button>
+            <button onclick="setTimeZone('America/New_York', this)">EST</button>
+            <button onclick="setTimeZone('Europe/London', this)">GMT/BST</button>
+            <button onclick="setTimeZone('Asia/Tokyo', this)">JST</button>
+            <button onclick="setTimeZone('America/Los_Angeles', this)">PST</button>
+        </div>
+        <div id="tz-name" class="timezone-info">Current Zone: Asia/Kolkata</div>
+    </div>
+
+    <script>
+        let currentTimeZone = 'Asia/Kolkata';
+
+        function setTimeZone(tz, btn) {
+            currentTimeZone = tz;
+            document.getElementById('tz-name').innerText = `Current Zone: ${tz}`;
+
+            // Update button styles
+            document.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function updateClocks() {
+            const now = new Date();
+
+            // 1. Get localized standard time parts
+            const formatter = new Intl.DateTimeFormat('en-GB', {
+                timeZone: currentTimeZone,
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+                fractionalSecondDigits: 3,
+                hour12: false
+            });
+
+            const parts = formatter.formatToParts(now);
+            const timeParts = {};
+            parts.forEach(({ type, value }) => timeParts[type] = value);
+
+            const h = parseInt(timeParts.hour);
+            const m = parseInt(timeParts.minute);
+            const s = parseInt(timeParts.second);
+            const ms = parseInt(timeParts.fractionalSecond);
+
+            // 2. Standard Display
+            document.getElementById('standard-clock').innerText =
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+            // 3. Decimal Calculation
+            // Standard ms since midnight in the selected timezone
+            const msSinceMidnight = (h * 3600000) + (m * 60000) + (s * 1000) + ms;
+
+            // Map 86.4M ms to 200M decimal ms (20-hour day)
+            const totalDecMs = (msSinceMidnight / 86400000) * 200000000;
+
+            let decH = Math.floor(totalDecMs / 10000000);
+            const decM = Math.floor((totalDecMs % 10000000) / 100000);
+            const decS = Math.floor((totalDecMs % 100000) / 1000);
+
+            // AM/PM logic for 20-hour day (10h each)
+            const decAmPm = decH >= 10 ? 'PM' : 'AM';
+            decH = decH % 10;
+            // decH = decH ? decH : 10; // Optional: use 10 instead of 0 for midnight/noon
+
+            document.getElementById('decimal-clock').innerText =
+                `${decH}:${decM.toString().padStart(2, '0')}:${decS.toString().padStart(2, '0')} ${decAmPm}`;
+        }
+
+        // Initial call
+        updateClocks();
+        setInterval(updateClocks, 100);
+    </script>
+
+</body>
+
+</html>
