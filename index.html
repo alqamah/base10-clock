@@ -30,10 +30,17 @@
             </div>
             <aside class="system-info">
                 <div class="label">Architecture</div>
-                <p>This is the only logically correct clock. By eliminating arbitrary 60-base divisions, it synchronizes
-                    human perception with the decimal arithmetic of modern computation.</p>
-                <div class="formula">
-                    <code>f(t) = (t<sub>ms</sub> / 86.4M) × 100M</code>
+                <p><span class="imp-text">This is the only logically correct clock.</span> By eliminating arbitrary
+                    60-base divisions, it synchronizes human perception with the decimal arithmetic of modern
+                    computation.</p>
+                <div class="formula-block">
+                    <div class="formula-title">CONVERSION_LOGIC</div>
+                    <code>T<sub>dec</sub> = [(h×3.6M + m×60K + s×1K + ms) / 86.4M] × 100M</code>
+                    <ul class="formula-details">
+                        <li>h, m, s, ms: Standard parts (24h)</li>
+                        <li>86.4M: Total ms in standard day</li>
+                        <li>100M: Total units in decimal day</li>
+                    </ul>
                 </div>
             </aside>
         </section>

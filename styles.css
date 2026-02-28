@@ -11,7 +11,7 @@
 }
 
 * {
-    filter: invert(100%);
+    /* filter: invert(100%); */
 
     margin: 0;
     padding: 0;
@@ -46,7 +46,7 @@ body {
 }
 
 .container::before {
-    content: "SYSTEM_TIME_V.2.0";
+    content: "TIME-BASE10";
     position: absolute;
     top: -10px;
     left: 20px;
@@ -84,6 +84,10 @@ header {
     background: var(--accent);
 }
 
+.imp-text {
+    background: var(--accent-dim);
+}
+
 .time-display {
     font-family: var(--font-mono);
     font-size: 5rem;
@@ -99,7 +103,6 @@ header {
 .sub-time {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
     margin-top: 2rem;
     padding-top: 1.5rem;
     border-top: 1px dashed var(--border);
@@ -118,13 +121,45 @@ header {
     margin-bottom: 0.75rem;
 }
 
-.system-info .formula {
-    font-size: 0.7rem;
-    color: var(--accent);
-    background: var(--accent-dim);
-    padding: 4px 8px;
+.system-info .formula-block {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    padding: 10px;
     border-radius: 2px;
-    display: inline-block;
+}
+
+.formula-title {
+    font-size: 0.6rem;
+    color: var(--accent);
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.system-info .formula-block code {
+    font-size: 0.65rem;
+    color: var(--text-primary);
+    display: block;
+    margin-bottom: 8px;
+    word-break: break-all;
+}
+
+.formula-details {
+    list-style: none;
+    font-size: 0.55rem;
+    color: var(--text-secondary);
+}
+
+.formula-details li {
+    margin-top: 2px;
+    position: relative;
+    padding-left: 10px;
+}
+
+.formula-details li::before {
+    content: ">";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
 }
 
 .standard-clock-wrap {
@@ -133,7 +168,7 @@ header {
 
 .standard-time {
     font-family: var(--font-mono);
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     color: var(--text-secondary);
 }
 
