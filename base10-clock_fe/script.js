@@ -24,17 +24,33 @@ function updateClocks() {
     stdClock.querySelector('.ampm').textContent = ampm;
 
     // Decimal Time Calculation
-    const msSinceMidnight = (now.getHours() * 3600000) +
-        (now.getMinutes() * 60000) +
+    const msSinceMidnight = (now.getHours() * 60*60*1000) +
+        (now.getMinutes() * 60*1000) +
         (now.getSeconds() * 1000) +
         now.getMilliseconds();
 
-    const decimalMs = (msSinceMidnight / 86400000) * 200000000;
+    // 24h*60m*60s*1000ms = 20dh*100dm*100ds*1000dms 
+
+     /*   
+    //ERROR
+    const decimalMs = (msSinceMidnight / 24*60*60*1000) * (20*100*100*1000);
+
+    const decS = Math.floor(decimalMs*1000);
+    const decM = decS*100;
+    const decH = decM*100;
+    */
+    
+
+    
+    //DEFAULT
+     const decimalMs = (msSinceMidnight / 86400000) * 200000000;
 
     let decH = Math.floor(decimalMs / 10000000);
     const decM = Math.floor((decimalMs % 10000000) / 100000);
     const decS = Math.floor((decimalMs % 100000) / 1000);
     const decAmPm = decH >= 10 ? 'PM' : 'AM';
+    
+    console.log(decS);
 
     decH = decH % 10;
     decH = decH ? decH : 10;
@@ -54,5 +70,5 @@ function updateClocks() {
 // Initial update
 updateClocks();
 
-// Update every second
+// update every 100ms
 setInterval(updateClocks, 100);
